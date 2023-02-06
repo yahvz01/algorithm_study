@@ -1,14 +1,15 @@
 object CaesarChar {
-    def isSpace( data : Int) : Boolean =
-        (data == 32)
 
     def isUpperCase( data : Int) : Boolean =
-        if(data >= 65 && data <= 90) true
+        if( 65 to 90 contains data ) true
         else false
 
     def isLowerCase( data : Int) : Boolean =
-        if(data >= 97 && data <= 122) true
+        if( 97 to 122 contains data ) true
         else false
+
+    def isSpace( data : Int) : Boolean =
+        (data == 32)
 
     def apply( originData : Int ) : CaesarChar =
         originData match {
@@ -23,6 +24,7 @@ sealed abstract class CaesarChar {
 }
 
 case class Upper( originData : Int ) extends CaesarChar {
+    def this( originData : Char ) = this(originData.toInt)
     def converted( param : Int ) : Int = {
         var preconverted = ((originData + param) % 91)
         if(preconverted < 65)
@@ -32,6 +34,7 @@ case class Upper( originData : Int ) extends CaesarChar {
     }
 }
 case class Lower( originData : Int ) extends CaesarChar {
+    def this( originData : Char ) = this(originData.toInt)
     def converted( param : Int ) : Int = {
         var preconverted = ((originData + param) % 123)
         if(preconverted < 97)
@@ -41,6 +44,7 @@ case class Lower( originData : Int ) extends CaesarChar {
     }
 }
 case class Space( originData : Int ) extends CaesarChar {
+    def this( originData : Char ) = this(originData.toInt)
     def converted( param : Int ) : Int = originData
 }
 
@@ -48,7 +52,7 @@ case class Space( originData : Int ) extends CaesarChar {
 object Solution {
     def solution(s: String, n: Int): String = {
         return s.split("")
-            .map( data => CaesarChar(data.charAt(0).toInt) )
+            .map( CaesarChar( _.charAt(0)) )
             .map( _.converted(n) )
             .map( _.toChar ).foldLeft("")( _ + _ )
     }
