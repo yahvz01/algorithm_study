@@ -2,6 +2,7 @@ import scala.collection.mutable.PriorityQueue
 import scala.math.Ordering.Int.{ reverse }
 
 object Solution {
+
     def solution(k: Int, score: Vector[Int]): Vector[Int] =
         // 오늘 몇 번째 날인지 구한다.
         (for ( targetIdx <- 1 to score.length )
