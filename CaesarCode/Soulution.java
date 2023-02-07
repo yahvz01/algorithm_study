@@ -1,8 +1,3 @@
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.function.IntSupplier;
-import java.util.stream.Collectors;
-
 abstract class CaesarChar {
     public static CaesarChar getInstance(int data) {
         if(isUpperCase(data)) 
