@@ -7,9 +7,9 @@ def isTriple( first : Int, second : Int, third : Int ) = {
 def solution(number: Vector[Int]): Int = {
     var combination = 0
     for
-        first <- 0 until ( number.size - 2 )
+        first  <- 0 until ( number.size - 2 )
         second <- (first + 1) until ( number.size - 1 )
-        third <- (second + 1) until ( number.size )
+        third  <- (second + 1) until ( number.size )
         if isTriple(number(first), number(second), number(third))
     do
         combination += 1
