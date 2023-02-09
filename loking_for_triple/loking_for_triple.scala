@@ -3,27 +3,32 @@ def isTriple( first : Int )( second : Int )( third : Int ) = {
     if( sum == 0 ) true else false
 }
 
-
+// using curring function for optimization in scala 3
 def solution(number: Vector[Int]): Int = {
     var combination = 0
-    
     for first <- 0 until ( number.size - 2)
     do 
         for second <- (first + 1) until (n umber.size - 1)
         do
             for third <- (second + 1) until ( number.size )
             do
-                if(checkWithFirstSecond(number(third))) {
-                    combination += 1
-             
+                if  isTriple(number(first), number(second), number(third))
+                then combination += 1
     return combination
 }
 
-@main
-def main() = {
-    println("hello")
-
-    println( solution(Vector(-2, 3, 0, 2, -5)) )
-    println( solution(Vector(-3, -2, -1, 0, 1, 2, 3)) )
-    println( solution(Vector(-1, 1, 1, 1)) )
-}
+// for scala 2 compiler in programmers
+// def solution(number: Vector[Int]): Int = {
+//     var combination = 0
+    
+//     for ( first <- 0 until ( number.size - 2) ) {
+//         for ( second <- (first + 1) until (n umber.size - 1) ) {
+//             for third <- (second + 1) until ( number.size ) {
+//                 if(isTriple(number(first), number(second), number(third))) {
+//                     combination += 1
+//                 }
+//             }
+//         }
+//     }
+//     return combination
+// }
