@@ -23,20 +23,29 @@ object Solution {
         val todayObj = Day( todayInfo(0).toInt,  todayInfo(1).toInt,  todayInfo(2).toInt )
         val termsMap : Map[String, Int] = terms.map { _.split(" ") }.map { data => (data(0), data(1).toInt) }.toMap
 
+        
         var index = 0;
         val result = ArrayBuffer.empty[Int]
-        privacies.foreach{ data => 
+        privacies
+            .map{ preProcessingRawData _ }
+            .map{ plusMonthByType _ }
+            .foreach {
+                if(_ isLaterThen todayObj)
+                    result += index
+                index += 1;
+            }
+        return result;
+    }
+    
+    // return ( 약관, 가입 기간 )
+    def preProcessingRawData( rawData : String ) : (Type, Day) = {
             val privacy = data.split(" ")
             val expireType = privacy(1);
             val preConvertedDay = privacy(0).split("\\.")
             val dayData = Day(preConvertedDay(0).toInt, preConvertedDay(1).toInt, preConvertedDay(2).toInt)
-
-            val expireDay = dayData + termsMap(expireType)
-            index += 1;
-            if( !expireDay.isLaterThen(todayObj) ) {
-                result += index
-            }
-        }
-        return result.toVector
+    }
+    // ( 약관, 가입 기간 ) => ( 약관, 만료 기간 기간 )
+    def plusMonthByType( tupleTypeAndDay : (Type, Day) ) : (Type, Day) = {
+            dayData(0) + termsMap(tupleTypeAndDay(0))
     }
 }
