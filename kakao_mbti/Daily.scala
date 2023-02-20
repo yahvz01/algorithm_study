@@ -20,19 +20,16 @@ object Solution {
 
             return evaluate(scoreBox)
         }
-    
 }
 
-def invertOneToThree( data : Int ) : Int = {
-    require(data >= 1 && data <= 3)
+def invertOneToThree( data : 1 | 2 | 3 ) =
     data match {
         case 3 => 1
         case 2 => 2
         case 1 => 3
     }
-}
-def convertScore( data : Int ) : Score = {
-    require(data >= 1 && data <= 7)
+    
+def convertScore( data : 1 | 2 | 3 | 4 | 5 | 6 | 7 ) : Score = {
     if(data <= 3)
         Left( invertOneToThree(data) )
     else if(data == 4)
@@ -40,6 +37,7 @@ def convertScore( data : Int ) : Score = {
     else
         Right( invertOneToThree(data) )
 }
+
 def questionResult( personalType : String, score : Int) : (Char, Int) = {
     convertScore(score) match {
         case Left(data)  => (personalType(0), data)
